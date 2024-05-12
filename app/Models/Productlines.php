@@ -11,11 +11,15 @@ class Productlines extends Model
 
     protected $table = 'productlines';
 
+    protected $primaryKey = 'productLine';
+    public $timestamps = false;
+
     protected $fillable = [
         'productLine',
         'textDescription',
         'htmlDescription',
-        'image'];
+        'image'
+    ];
 
     public function getRouteKeyName()
     {

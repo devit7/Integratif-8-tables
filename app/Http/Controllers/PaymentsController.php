@@ -53,7 +53,8 @@ class PaymentsController extends Controller
      */
     public function show(Payments $payment)
     {
-        return response()->json($payment);
+        //dd($payment);
+        return response()->json(Payments::where('checkNumber', $payment->checkNumber)->first());
     }
 
     /**
@@ -66,14 +67,12 @@ class PaymentsController extends Controller
     public function update(Request $request, Payments $payment)
     {
         $request->validate([
-            'customerNumber' => 'required|numeric|exists:customers,customerNumber',
             'checkNumber' => 'required|unique:payments,checkNumber,' . $payment->checkNumber . ',checkNumber',
             'amount' => 'required|numeric',
         ]);
 
         $payment->where('checkNumber', $payment->checkNumber)
         ->update([
-            'customerNumber' => $request->customerNumber,
             'checkNumber' => $request->checkNumber,
             'paymentDate' => now(),
             'amount' => $request->amount,

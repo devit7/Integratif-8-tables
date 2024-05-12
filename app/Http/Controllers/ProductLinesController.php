@@ -14,7 +14,7 @@ class ProductLinesController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Productlines::all());
     }
 
     /**
@@ -25,7 +25,24 @@ class ProductLinesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'productLine' => 'required|unique:productlines,productLine',
+            'textDescription' => 'required',
+            'htmlDescription' => 'required',
+            'image' => 'required',
+        ]);
+
+        $data = Productlines::create([
+            'productLine' => $request->productLine,
+            'textDescription' => $request->textDescription,
+            'htmlDescription' => $request->htmlDescription,
+            'image' => $request->image,
+        ]);
+
+        return response()->json([
+            'message' => 'Data product line berhasil disimpan',
+            'data' => $data
+        ], 201);
     }
 
     /**
@@ -34,9 +51,9 @@ class ProductLinesController extends Controller
      * @param  \App\Models\Productlines  $productlines
      * @return \Illuminate\Http\Response
      */
-    public function show(Productlines $productlines)
+    public function show(Productlines $productline)
     {
-        //
+        return response()->json($productline);
     }
 
     /**
@@ -46,9 +63,27 @@ class ProductLinesController extends Controller
      * @param  \App\Models\Productlines  $productlines
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Productlines $productlines)
+    public function update(Request $request, Productlines $productline)
     {
-        //
+        //dd($productline);
+        $request->validate([
+            'productLine' => 'required|unique:productlines,productLine,' . $productline->productLine . ',productLine',
+            'textDescription' => 'required',
+            'htmlDescription' => 'required',
+            'image' => 'required',
+        ]);
+
+        $data = $productline->update([
+            'productLine' => $request->productLine,
+            'textDescription' => $request->textDescription,
+            'htmlDescription' => $request->htmlDescription,
+            'image' => $request->image,
+        ]);
+
+        return response()->json([
+            'message' => 'Data product line berhasil diubah',
+            'data' => $data
+        ], 200);
     }
 
     /**
@@ -57,8 +92,11 @@ class ProductLinesController extends Controller
      * @param  \App\Models\Productlines  $productlines
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Productlines $productlines)
+    public function destroy(Productlines $productline)
     {
-        //
+        $productline->delete();
+        return response()->json([
+            'message' => 'Data product line berhasil dihapus'
+        ], 200);
     }
 }

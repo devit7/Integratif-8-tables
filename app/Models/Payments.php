@@ -10,6 +10,7 @@ class Payments extends Model
     use HasFactory;
 
     protected $table = 'payments';
+    protected $primaryKey = 'checkNumber';
 
     protected $fillable = [
         'customerNumber',
@@ -17,7 +18,6 @@ class Payments extends Model
         'paymentDate',
         'amount'
     ];
-
     public $timestamps = false;
 
     public function getRouteKeyName()
