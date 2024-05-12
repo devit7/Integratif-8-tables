@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OfficesController;
+use App\Http\Controllers\PaymentsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,6 @@ Route::prefix('1201220030/public')->group(function(){
     Route::get('/getAllUsers', [AuthController::class,'getAllUsers']);
 
     Route::apiResource('/offices', OfficesController::class)->middleware('auth:sanctum');
+    Route::apiResource('/payments', PaymentsController::class);
 });
 

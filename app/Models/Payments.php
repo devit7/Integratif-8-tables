@@ -11,9 +11,18 @@ class Payments extends Model
 
     protected $table = 'payments';
 
+    protected $fillable = [
+        'customerNumber',
+        'checkNumber',
+        'paymentDate',
+        'amount'
+    ];
+
+    public $timestamps = false;
+
     public function getRouteKeyName()
     {
-        return 'customerNumber';
+        return 'checkNumber';
     }
 
     public function customers()

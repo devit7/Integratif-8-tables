@@ -27,5 +27,5 @@ class Employees extends Model
         return $this->hasMany(Customers::class, 'salesRepEmployeeNumber', 'employeeNumber');
     }
 
-    
+
 }
